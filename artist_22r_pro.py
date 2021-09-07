@@ -44,7 +44,7 @@ class Artist22RPro:
 
             entry_text.set_editable(False)
             entry_text.user_data = button
-            entry_text.set_text("+".join([str(from_scancode(c)) for c in self.mapping[button]]))
+            entry_text.set_text("+".join([str(from_scancode(c)) for c in self.mapping["buttons"][button]["1"]]))
             entry_text.connect("changed", self.on_text_entry_changed)
             entry_box.pack_start(entry_text, True, True, self.default_padding_px)
 
@@ -63,7 +63,7 @@ class Artist22RPro:
 
             entry_text.set_editable(False)
             entry_text.user_data = button
-            entry_text.set_text("+".join([str(from_scancode(c)) for c in self.mapping[button]]))
+            entry_text.set_text("+".join([str(from_scancode(c)) for c in self.mapping["buttons"][button]["1"]]))
             entry_text.connect("changed", self.on_text_entry_changed)
             entry_box.pack_start(entry_text, True, True, self.default_padding_px)
 
@@ -71,7 +71,7 @@ class Artist22RPro:
         widget_text = widget.get_text()
         user_data = [to_scancode(k) for k in widget_text.split('+')]
         print(user_data)
-        self.mapping[widget.user_data] = user_data
+        self.mapping["buttons"][widget.user_data] = {"1": user_data}
 
     def on_button_clicked(self, widget):
         pressed_keys = {}
