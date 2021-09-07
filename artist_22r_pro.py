@@ -31,47 +31,60 @@ class Artist22RPro:
         counter = 0
 
         for button in left_buttons_list:
-            entry_box = Gtk.Box(spacing=6)
-            self.left_vert_box.add(entry_box)
-
             counter += 1
-            entry_button = Gtk.Button(label="Button {}".format(counter))
-            entry_text = Gtk.Entry()
-            entry_button.entry_text = entry_text
-
-            entry_button.connect("clicked", self.on_button_clicked)
-            entry_box.pack_start(entry_button, True, True, self.default_padding_px)
-
-            entry_text.set_editable(False)
-            entry_text.user_data = button
-            entry_text.set_text("+".join([str(from_scancode(c)) for c in self.mapping["buttons"][button]["1"]]))
-            entry_text.connect("changed", self.on_text_entry_changed)
-            entry_box.pack_start(entry_text, True, True, self.default_padding_px)
+            entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["buttons"][button]["1"]])
+            self.create_button_and_entry_in_box(self.left_vert_box, "Button {}".format(counter), button, entry_text, self.on_text_entry_changed)
 
         right_buttons_list = ['304', '305', '306', '307', '308', '309', '310', '311', '312', '313']
         for button in right_buttons_list:
-            entry_box = Gtk.Box(spacing=6)
-            self.right_vert_box.add(entry_box)
-
             counter += 1
-            entry_button = Gtk.Button(label="Button {}".format(counter))
-            entry_text = Gtk.Entry()
-            entry_button.entry_text = entry_text
+            entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["buttons"][button]["1"]])
+            self.create_button_and_entry_in_box(self.right_vert_box, "Button {}".format(counter), button, entry_text, self.on_text_entry_changed)
 
-            entry_button.connect("clicked", self.on_button_clicked)
-            entry_box.pack_start(entry_button, True, True, self.default_padding_px)
+        entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["dials"]['8']['-1']['1']])
+        self.create_button_and_entry_in_box(self.left_vert_box, "Left Dial => Left", ['6', '-1'], entry_text, self.on_dial_entry_changed)
 
-            entry_text.set_editable(False)
-            entry_text.user_data = button
-            entry_text.set_text("+".join([str(from_scancode(c)) for c in self.mapping["buttons"][button]["1"]]))
-            entry_text.connect("changed", self.on_text_entry_changed)
-            entry_box.pack_start(entry_text, True, True, self.default_padding_px)
+        entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["dials"]['8']['1']['1']])
+        self.create_button_and_entry_in_box(self.left_vert_box, "Left Dial => Right", ['6', '1'], entry_text,
+                                            self.on_dial_entry_changed)
+
+        entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["dials"]['6']['-1']['1']])
+        self.create_button_and_entry_in_box(self.right_vert_box, "Right Dial => Left", ['6', '-1'], entry_text,
+                                            self.on_dial_entry_changed)
+
+        entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["dials"]['6']['1']['1']])
+        self.create_button_and_entry_in_box(self.right_vert_box, "Right Dial => Right", ['6', '1'], entry_text,
+                                            self.on_dial_entry_changed)
+
+    def create_button_and_entry_in_box(self, parent, buttonName, userdata, entrytext, textchanged):
+        entry_box = Gtk.Box(spacing=6)
+        parent.add(entry_box)
+
+        entry_button = Gtk.Button(label=buttonName)
+        entry_text = Gtk.Entry()
+        entry_button.entry_text = entry_text
+
+        entry_button.connect("clicked", self.on_button_clicked)
+        entry_box.pack_start(entry_button, True, True, self.default_padding_px)
+
+        entry_text.set_editable(False)
+        entry_text.user_data = userdata
+        entry_text.set_text(entrytext)
+        entry_text.connect("changed", textchanged)
+        entry_box.pack_start(entry_text, True, True, self.default_padding_px)
+        return entry_box
 
     def on_text_entry_changed(self, widget):
         widget_text = widget.get_text()
         user_data = [to_scancode(k) for k in widget_text.split('+')]
         print(user_data)
         self.mapping["buttons"][widget.user_data] = {"1": user_data}
+
+    def on_dial_entry_changed(self, widget):
+        widget_text = widget.get_text()
+        user_data = [to_scancode(k) for k in widget_text.split('+')]
+        print(user_data)
+        self.mapping["dials"][widget.user_data[0]][widget.user_data[1]] = {"1": user_data}
 
     def on_button_clicked(self, widget):
         pressed_keys = {}
