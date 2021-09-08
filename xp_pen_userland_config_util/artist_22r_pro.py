@@ -2,45 +2,61 @@ import gi
 import pynput
 from gi.repository import Gtk
 
-from pynput_to_scancode import from_scancode
-from pynput_to_scancode import to_scancode
+from .pynput_to_scancode import from_scancode
+from .pynput_to_scancode import to_scancode
 
 
-class Artist133Pro:
+class Artist22RPro:
     def __init__(self):
         self.mapping = None
         self.content_hori_box = None
-        self.content_vert_box = None
+        self.left_vert_box = None
+        self.right_vert_box = None
         self.default_padding_px = 5
 
     def product_id(self):
-        return '2347'
+        return '2331'
 
     def product_name(self):
-        return "XP-Pen Artist 13.3 Pro"
+        return "XP-Pen Artist 22R Pro"
 
     def generate_layout(self, json_config, container):
         self.mapping = json_config["XP-Pen"][self.product_id()]["mapping"]
 
         self.content_hori_box = Gtk.Box(spacing=6)
-        self.content_vert_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-        self.content_hori_box.add(self.content_vert_box)
+        self.left_vert_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        self.right_vert_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        self.content_hori_box.add(self.left_vert_box)
+        self.content_hori_box.add(self.right_vert_box)
         container.pack_start(self.content_hori_box, True, True, self.default_padding_px)
 
-        buttons_list = ['256', '257', '258', '259', '260', '261', '262', '263']
+        left_buttons_list = ['256', '257', '258', '259', '260', '261', '262', '263', '264', '265']
         counter = 0
 
-        for button in buttons_list:
+        for button in left_buttons_list:
             counter += 1
             entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["buttons"][button]["1"]])
-            self.create_button_and_entry_in_box(self.content_vert_box, "Button {}".format(counter), button, entry_text,
-                                                self.on_text_entry_changed)
+            self.create_button_and_entry_in_box(self.left_vert_box, "Button {}".format(counter), button, entry_text, self.on_text_entry_changed)
+
+        right_buttons_list = ['304', '305', '306', '307', '308', '309', '310', '311', '312', '313']
+        for button in right_buttons_list:
+            counter += 1
+            entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["buttons"][button]["1"]])
+            self.create_button_and_entry_in_box(self.right_vert_box, "Button {}".format(counter), button, entry_text, self.on_text_entry_changed)
 
         entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["dials"]['8']['-1']['1']])
-        self.create_button_and_entry_in_box(self.content_vert_box, "Left Dial => Left", ['8', '-1'], entry_text, self.on_dial_entry_changed)
+        self.create_button_and_entry_in_box(self.left_vert_box, "Left Dial => Left", ['8', '-1'], entry_text, self.on_dial_entry_changed)
 
         entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["dials"]['8']['1']['1']])
-        self.create_button_and_entry_in_box(self.content_vert_box, "Left Dial => Right", ['8', '1'], entry_text,
+        self.create_button_and_entry_in_box(self.left_vert_box, "Left Dial => Right", ['8', '1'], entry_text,
+                                            self.on_dial_entry_changed)
+
+        entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["dials"]['6']['-1']['1']])
+        self.create_button_and_entry_in_box(self.right_vert_box, "Right Dial => Left", ['6', '-1'], entry_text,
+                                            self.on_dial_entry_changed)
+
+        entry_text = "+".join([str(from_scancode(c)) for c in self.mapping["dials"]['6']['1']['1']])
+        self.create_button_and_entry_in_box(self.right_vert_box, "Right Dial => Right", ['6', '1'], entry_text,
                                             self.on_dial_entry_changed)
 
         self.content_hori_box.show_all()

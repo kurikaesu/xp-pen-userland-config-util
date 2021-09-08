@@ -6,8 +6,8 @@ import gi
 import psutil
 from gi.repository import Gtk
 
-from artist_22r_pro import Artist22RPro
-from artist_13_3_pro import Artist133Pro
+from .artist_22r_pro import Artist22RPro
+from .artist_13_3_pro import Artist133Pro
 
 gi.require_version("Gtk", "3.0")
 
@@ -61,6 +61,8 @@ class ConfigurationWindow(Gtk.Window):
                 self.current_showing_config.destroy()
 
             self.current_showing_config = generator.generate_layout(self.jsonConfig, self.vert_box)
+
+        self.resize(1, 1)
 
     def parse_current_config(self):
         config_file = open("%s/.local/share/xp_pen_userland/driver.cfg" % os.getenv('HOME'), )

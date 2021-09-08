@@ -130,3 +130,5 @@ dmypy.json
 
 # Local settings
 .idea
+deb_dist
+*.tar.gz
