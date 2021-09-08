@@ -7,6 +7,7 @@ import psutil
 from gi.repository import Gtk
 
 from artist_22r_pro import Artist22RPro
+from artist_13_3_pro import Artist133Pro
 
 gi.require_version("Gtk", "3.0")
 
@@ -15,6 +16,7 @@ class ConfigurationWindow(Gtk.Window):
     def __init__(self):
         super().__init__(title="Configuration")
         self.default_padding_px = 10
+        self.current_showing_config = None
 
         self.vert_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.add(self.vert_box)
@@ -30,11 +32,35 @@ class ConfigurationWindow(Gtk.Window):
         self.jsonConfig = None
 
         self.parse_current_config()
-        self.artist_22r_pro = Artist22RPro()
+        self.handlers = {"XP-Pen": {}}
+        a22r_pro_handler = Artist22RPro()
+        self.handlers["XP-Pen"][a22r_pro_handler.product_id()] = a22r_pro_handler
+        a133_pro_handler = Artist133Pro()
+        self.handlers["XP-Pen"][a133_pro_handler.product_id()] = a133_pro_handler
 
-        if "XP-Pen" in self.jsonConfig:
-            if "2331" in self.jsonConfig["XP-Pen"]:
-                self.artist_22r_pro.generate_layout(self.jsonConfig, self.vert_box)
+        config_dropbox_data = Gtk.ListStore(object, str)
+
+        for vendor in self.jsonConfig:
+            if vendor in self.handlers:
+                for product in self.handlers[vendor]:
+                    if product in self.jsonConfig[vendor]:
+                        config_dropbox_data.append([self.handlers[vendor][product], self.handlers[vendor][product].product_name()])
+
+        self.config_dropbox = Gtk.ComboBox.new_with_model_and_entry(config_dropbox_data)
+        self.config_dropbox.set_entry_text_column(1)
+        self.config_dropbox.connect("changed", self.on_config_changed)
+        self.vert_box.pack_start(self.config_dropbox, False, False, 0)
+        # self.handlers[vendor][product].generate_layout(self.jsonConfig, self.vert_box)
+
+    def on_config_changed(self, widget):
+        tree_iter = widget.get_active_iter()
+        if tree_iter is not None:
+            model = widget.get_model()
+            generator, name = model[tree_iter][:2]
+            if self.current_showing_config is not None:
+                self.current_showing_config.destroy()
+
+            self.current_showing_config = generator.generate_layout(self.jsonConfig, self.vert_box)
 
     def parse_current_config(self):
         config_file = open("%s/.local/share/xp_pen_userland/driver.cfg" % os.getenv('HOME'), )
