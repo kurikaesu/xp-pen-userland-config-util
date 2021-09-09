@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='xp_pen_userland_config_util',
-    version='0.1.0',
+    version='0.1.1',
     description='Configuration GUI for xp_pen_userland',
     author='Aren Villanueva',
     author_email='kurikaesu@users.noreply.github.com',

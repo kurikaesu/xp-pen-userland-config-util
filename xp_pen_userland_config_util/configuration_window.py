@@ -6,9 +6,9 @@ import gi
 import psutil
 from gi.repository import Gtk
 
-from .artist_22r_pro import Artist22RPro
-from .artist_13_3_pro import Artist133Pro
-from .artist_24_pro import Artist24Pro
+from artist_22r_pro import Artist22RPro
+from artist_13_3_pro import Artist133Pro
+from artist_24_pro import Artist24Pro
 
 gi.require_version("Gtk", "3.0")
 
@@ -41,6 +41,10 @@ class ConfigurationWindow(Gtk.Window):
         a24_pro_handler = Artist24Pro()
         self.handlers["XP-Pen"][a24_pro_handler.product_id()] = a24_pro_handler
 
+        devices_label = Gtk.Label(label="Device: ")
+        self.combo_label_box = Gtk.Box(spacing=6)
+        self.combo_label_box.pack_start(devices_label, False, False, self.default_padding_px)
+
         config_dropbox_data = Gtk.ListStore(object, str)
 
         for vendor in self.jsonConfig:
@@ -52,7 +56,8 @@ class ConfigurationWindow(Gtk.Window):
         self.config_dropbox = Gtk.ComboBox.new_with_model_and_entry(config_dropbox_data)
         self.config_dropbox.set_entry_text_column(1)
         self.config_dropbox.connect("changed", self.on_config_changed)
-        self.vert_box.pack_start(self.config_dropbox, False, False, 0)
+        self.combo_label_box.pack_start(self.config_dropbox, True, True, self.default_padding_px)
+        self.vert_box.pack_start(self.combo_label_box, False, False, self.default_padding_px)
 
     def on_config_changed(self, widget):
         tree_iter = widget.get_active_iter()
