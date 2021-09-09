@@ -12,6 +12,8 @@ Pressing the update button will send the SIGHUP signal to the actual driver and 
 
 Setup with:
 ```
+git clone https://github.com/kurikaesu/xp-pen-userland-config-util.git
+cd xp-pen-userland-config-util
 pip install -r requirements.txt
-python3 main.py
+python3 xp_pen_userland_config_util
 ```
