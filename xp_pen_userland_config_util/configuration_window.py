@@ -8,6 +8,7 @@ from gi.repository import Gtk
 
 from .artist_22r_pro import Artist22RPro
 from .artist_13_3_pro import Artist133Pro
+from .artist_24_pro import Artist24Pro
 
 gi.require_version("Gtk", "3.0")
 
@@ -37,6 +38,8 @@ class ConfigurationWindow(Gtk.Window):
         self.handlers["XP-Pen"][a22r_pro_handler.product_id()] = a22r_pro_handler
         a133_pro_handler = Artist133Pro()
         self.handlers["XP-Pen"][a133_pro_handler.product_id()] = a133_pro_handler
+        a24_pro_handler = Artist24Pro()
+        self.handlers["XP-Pen"][a24_pro_handler.product_id()] = a24_pro_handler
 
         config_dropbox_data = Gtk.ListStore(object, str)
 
@@ -50,7 +53,6 @@ class ConfigurationWindow(Gtk.Window):
         self.config_dropbox.set_entry_text_column(1)
         self.config_dropbox.connect("changed", self.on_config_changed)
         self.vert_box.pack_start(self.config_dropbox, False, False, 0)
-        # self.handlers[vendor][product].generate_layout(self.jsonConfig, self.vert_box)
 
     def on_config_changed(self, widget):
         tree_iter = widget.get_active_iter()

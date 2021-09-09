@@ -2,7 +2,12 @@
 
 <img src="data/Artist22RProConfig.png">
 
-Very rudimentary at the moment and only supports the Artist 22R Pro for now.
+Very rudimentary GUI.
+Supports:
+- Artist 22R Pro
+- Artist 13.3 Pro
+- Artist 24 Pro (Untested)
+
 Pressing the update button will send the SIGHUP signal to the actual driver and get it to reload the config.
 
 Setup with:
