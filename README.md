@@ -6,6 +6,7 @@ Very rudimentary GUI.
 Supports:
 - Artist 22R Pro
 - Artist 13.3 Pro
+- Artist 12 Pro (Untested)
 - Artist 24 Pro (Untested)
 
 Pressing the update button will send the SIGHUP signal to the actual driver and get it to reload the config.

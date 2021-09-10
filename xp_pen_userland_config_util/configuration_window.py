@@ -9,6 +9,7 @@ from gi.repository import Gtk
 from artist_22r_pro import Artist22RPro
 from artist_13_3_pro import Artist133Pro
 from artist_24_pro import Artist24Pro
+from artist_12_pro import Artist12Pro
 
 gi.require_version("Gtk", "3.0")
 
@@ -40,6 +41,8 @@ class ConfigurationWindow(Gtk.Window):
         self.handlers["XP-Pen"][a133_pro_handler.product_id()] = a133_pro_handler
         a24_pro_handler = Artist24Pro()
         self.handlers["XP-Pen"][a24_pro_handler.product_id()] = a24_pro_handler
+        a12_pro_handler = Artist12Pro()
+        self.handlers["XP-Pen"][a12_pro_handler.product_id()] = a12_pro_handler
 
         devices_label = Gtk.Label(label="Device: ")
         self.combo_label_box = Gtk.Box(spacing=6)
