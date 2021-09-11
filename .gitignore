@@ -132,3 +132,4 @@ dmypy.json
 .idea
 deb_dist
 *.tar.gz
+.pybuild

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "************************************************"
+echo "*                    NOTICE                    *"
+echo "************************************************"
+echo "This package requires pynput from pip or pypi."
+echo "Please install with: pip3 install pynput"
+echo ""

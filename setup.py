@@ -10,7 +10,7 @@ setup(
     license='GPLv3',
     packages=find_packages(exclude=['tests']),
     entry_points={
-        'gui_scripts': ['xp_pen_userland_config_util=xp_pen_userland_config_util.main:main']
+        'gui_scripts': ['xp_pen_userland_config_util=xp_pen_userland_config_util.__main__:main']
     },
     data_files=[
         ('share/applications/', ['config/xp_pen_userland_config_util.desktop'])

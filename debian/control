@@ -1,0 +1,12 @@
+Source: xp-pen-userland-config-util
+Section: python
+Priority: optional
+Maintainer: Aren Villanueva <arenvillanueva@yomogi-soft.com>
+Build-Depends: debhelper (>= 10), python3
+X-Python-Version: >= 3.8
+
+Package: xp-pen-userland-config-util
+Architecture: all
+Section: python
+Depends: python3, python3-pip
+Description: Config util

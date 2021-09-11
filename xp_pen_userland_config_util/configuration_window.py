@@ -6,12 +6,12 @@ import gi
 import psutil
 from gi.repository import Gtk
 
-from artist_22r_pro import Artist22RPro
-from artist_13_3_pro import Artist133Pro
-from artist_24_pro import Artist24Pro
-from artist_12_pro import Artist12Pro
-from deco_pro_sm import DecoProSmall
-from deco_pro_md import DecoProMedium
+from .artist_22r_pro import Artist22RPro
+from .artist_13_3_pro import Artist133Pro
+from .artist_24_pro import Artist24Pro
+from .artist_12_pro import Artist12Pro
+from .deco_pro_sm import DecoProSmall
+from .deco_pro_md import DecoProMedium
 
 gi.require_version("Gtk", "3.0")
 

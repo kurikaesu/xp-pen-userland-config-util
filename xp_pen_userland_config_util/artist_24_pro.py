@@ -2,8 +2,8 @@ import gi
 import pynput
 from gi.repository import Gtk
 
-from pynput_to_scancode import from_scancode
-from pynput_to_scancode import to_scancode
+from .pynput_to_scancode import from_scancode
+from .pynput_to_scancode import to_scancode
 
 
 class Artist24Pro:

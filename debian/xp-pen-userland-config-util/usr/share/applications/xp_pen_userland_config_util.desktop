@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=XP-Pen Userland Configurator
+Comment=Kuri's XP-Pen Userland driver configuration utility.
+Exec=xp_pen_userland_config_util
+Type=Application
+Categories=Development;IDE;
