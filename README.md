@@ -16,5 +16,5 @@ Setup with:
 git clone https://github.com/kurikaesu/xp-pen-userland-config-util.git
 cd xp-pen-userland-config-util
 pip install -r requirements.txt
-python3 xp_pen_userland_config_util
+python3 -m xp_pen_userland_config_util
 ```
