@@ -10,6 +10,7 @@ from .artist_22r_pro import Artist22RPro
 from .artist_13_3_pro import Artist133Pro
 from .artist_24_pro import Artist24Pro
 from .artist_12_pro import Artist12Pro
+from .deco_01v2 import Deco01v2
 from .deco_pro_sm import DecoProSmall
 from .deco_pro_md import DecoProMedium
 
@@ -49,6 +50,9 @@ class ConfigurationWindow(Gtk.Window):
         self.handlers["XP-Pen"][deco_pro_sm_handler.product_id()] = deco_pro_sm_handler
         deco_pro_md_handler = DecoProMedium()
         self.handlers["XP-Pen"][deco_pro_md_handler.product_id()] = deco_pro_md_handler
+        deco_01v2_handler = Deco01v2()
+        self.handlers["XP-Pen"][deco_01v2_handler.product_id()] = deco_01v2_handler
+
 
         devices_label = Gtk.Label(label="Device: ")
         self.combo_label_box = Gtk.Box(spacing=6)
