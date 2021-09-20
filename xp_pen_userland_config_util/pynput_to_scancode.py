@@ -70,6 +70,7 @@ def get_keymap():
         'key.scroll_lock': 70,
         '<65437>': 76,
         '+': 78,
+        'key.plus': 78,
         'key.f11': 87,
         'key.f12': 88,
         'key.print_screen': 99,
@@ -92,6 +93,8 @@ def get_keymap():
 
 def get_reversed_keymap():
     keymap = {v: k for k, v in get_keymap().items()}
+    # We alias this key to key.plus as we are splitting the strings later on by "+" which causes it to disappear
+    keymap[78] = "key.plus"
     return keymap
 
 
