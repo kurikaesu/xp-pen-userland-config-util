@@ -84,6 +84,7 @@ def get_keymap():
         'key.insert': 110,
         'key.delete': 111,
         'key.pause': 119,
+        'key.cmd': 125,
     }
 
     return keymap
