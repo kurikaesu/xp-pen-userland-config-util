@@ -53,6 +53,7 @@ def get_keymap():
         '.': 52,
         '/': 53,
         'key.shift_r': 54,
+        '*': 55,
         'key.alt': 56,
         'key.space': 57,
         '<65328>': 58,
