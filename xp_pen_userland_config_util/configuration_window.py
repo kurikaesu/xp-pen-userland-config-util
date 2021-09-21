@@ -37,21 +37,21 @@ class ConfigurationWindow(Gtk.Window):
         self.jsonConfig = None
 
         self.parse_current_config()
-        self.handlers = {"XP-Pen": {}}
+        self.handlers = {"10429": {}}
         a22r_pro_handler = Artist22RPro()
-        self.handlers["XP-Pen"][a22r_pro_handler.product_id()] = a22r_pro_handler
+        self.handlers["10429"][a22r_pro_handler.product_id()] = a22r_pro_handler
         a133_pro_handler = Artist133Pro()
-        self.handlers["XP-Pen"][a133_pro_handler.product_id()] = a133_pro_handler
+        self.handlers["10429"][a133_pro_handler.product_id()] = a133_pro_handler
         a24_pro_handler = Artist24Pro()
-        self.handlers["XP-Pen"][a24_pro_handler.product_id()] = a24_pro_handler
+        self.handlers["10429"][a24_pro_handler.product_id()] = a24_pro_handler
         a12_pro_handler = Artist12Pro()
-        self.handlers["XP-Pen"][a12_pro_handler.product_id()] = a12_pro_handler
+        self.handlers["10429"][a12_pro_handler.product_id()] = a12_pro_handler
         deco_pro_sm_handler = DecoProSmall()
-        self.handlers["XP-Pen"][deco_pro_sm_handler.product_id()] = deco_pro_sm_handler
+        self.handlers["10429"][deco_pro_sm_handler.product_id()] = deco_pro_sm_handler
         deco_pro_md_handler = DecoProMedium()
-        self.handlers["XP-Pen"][deco_pro_md_handler.product_id()] = deco_pro_md_handler
+        self.handlers["10429"][deco_pro_md_handler.product_id()] = deco_pro_md_handler
         deco_01v2_handler = Deco01v2()
-        self.handlers["XP-Pen"][deco_01v2_handler.product_id()] = deco_01v2_handler
+        self.handlers["10429"][deco_01v2_handler.product_id()] = deco_01v2_handler
 
 
         devices_label = Gtk.Label(label="Device: ")
@@ -60,10 +60,10 @@ class ConfigurationWindow(Gtk.Window):
 
         config_dropbox_data = Gtk.ListStore(object, str)
 
-        for vendor in self.jsonConfig:
+        for vendor in self.jsonConfig["deviceConfigurations"]:
             if vendor in self.handlers:
                 for product in self.handlers[vendor]:
-                    if product in self.jsonConfig[vendor]:
+                    if product in self.jsonConfig["deviceConfigurations"][vendor]:
                         config_dropbox_data.append([self.handlers[vendor][product], self.handlers[vendor][product].product_name()])
 
         self.config_dropbox = Gtk.ComboBox.new_with_model_and_entry(config_dropbox_data)

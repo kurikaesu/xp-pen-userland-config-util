@@ -20,7 +20,7 @@ class DecoProMedium:
         return "XP-Pen Deco Pro Medium"
 
     def generate_layout(self, json_config, container):
-        self.mapping = json_config["XP-Pen"][self.product_id()]["mapping"]
+        self.mapping = json_config["deviceConfigurations"]["10429"][self.product_id()]["mapping"]
 
         self.content_hori_box = Gtk.Box(spacing=6)
         self.content_vert_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
