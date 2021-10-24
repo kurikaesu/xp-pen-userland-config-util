@@ -1,3 +1,7 @@
+# Deprecated
+Please use the Kotlin GUI instead: https://github.com/kurikaesu/userspace-tablet-driver-gui
+
+---
 # Kuri's XP-Pen Userland config utility (GUI)
 
 <img src="data/Artist22RProConfig.png">
